@@ -20,7 +20,7 @@ class KotlinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Charger la langue enregistrée
+
         sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
         val selectedLanguage = sharedPreferences.getString("LANGUAGE", "fr") ?: "fr"
         setAppLocale(selectedLanguage)

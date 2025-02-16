@@ -3,14 +3,13 @@
     <!-- Nom de l'application -->
     <string name="app_name">ContactApp</string>
 
-    <!-- Étiquettes -->
+
     <string name="nom">Nom</string>
     <string name="prenom">Prénom</string>
     <string name="age">Âge</string>
     <string name="domaine">Domaine de compétences</string>
     <string name="telephone">Téléphone</string>
 
-    <!-- Boutons & Actions -->
     <string name="valider">Valider</string>
     <string name="ajouter_contact">Ajouter un contact</string>
     <string name="voir_contacts">Voir la liste des contacts</string>
@@ -18,7 +17,6 @@
     <string name="version_xml">Version XML</string>
     <string name="version_kotlin">Version Kotlin</string>
 
-    <!-- Messages -->
     <string name="bienvenue">Bienvenue sur ContactApp</string>
     <string name="contact_enregistre">Contact enregistré avec succès !</string>
     <string name="contact_supprime">Contact supprimé avec succès</string>
@@ -28,14 +26,12 @@
     <string name="erreur_suppression">Erreur lors de la suppression du contact</string>
     <string name="permission_acceptee">Permission d\'appel accordée</string>
 
-
-    <!-- Appels & Permissions -->
     <string name="numero_telephone">Numéro de téléphone : %1$s</string>
     <string name="permission_refusee">Permission refusée pour effectuer l\'appel</string>
     <string name="erreur_appel">Erreur lors de l\'appel téléphonique</string>
     <string name="appeler">Appeler</string>
 
-    <!-- Interface & Navigation -->
+
     <string name="changer_langue">Français</string>
     <string name="desc_changer_langue">Changer la langue de l\'application</string>
     <string name="resume_info">Résumé des informations</string>
@@ -44,7 +40,6 @@
     <string name="retour_accueil">Retour à l\'accueil</string>
     <string name="supprimer_contact">Voulez-vous supprimer ce contact ?</string>
 
-    <!-- Indices de saisie -->
     <string name="hint_nom">Entrez votre nom</string>
     <string name="hint_prenom">Entrez votre prénom</string>
     <string name="hint_age">Entrez votre âge</string>
