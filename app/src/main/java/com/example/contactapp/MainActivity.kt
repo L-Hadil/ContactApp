@@ -1,15 +1,26 @@
 package com.example.contactapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.util.Locale
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Charger la langue enregistrée
+        sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
+        val selectedLanguage = sharedPreferences.getString("LANGUAGE", "fr") ?: "fr"
+        setAppLocale(selectedLanguage)
+
         setContentView(R.layout.activity_main)
 
         setupButtons()
@@ -17,54 +28,78 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        // Configuration des boutons de navigation
-        findViewById<Button>(R.id.btnVersionXML).apply {
-            setOnClickListener {
-                startActivity(Intent(context, XMLActivity::class.java))
-            }
+        findViewById<Button>(R.id.btnVersionXML).setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
         }
 
-        findViewById<Button>(R.id.btnVersionKotlin).apply {
-            setOnClickListener {
-                startActivity(Intent(context, KotlinActivity::class.java))
-            }
+        findViewById<Button>(R.id.btnVersionKotlin).setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
         }
 
-        // Configuration du bouton de changement de langue
-        findViewById<Button>(R.id.btnChangeLang).apply {
-            setOnClickListener {
-                toggleLanguage()
-            }
+        findViewById<Button>(R.id.btnChangeLang).setOnClickListener {
+            toggleLanguage()
         }
+
+
+    }
+
+    private fun saveContact() {
+        val etNom = findViewById<EditText>(R.id.etNom)
+        val etPrenom = findViewById<EditText>(R.id.etPrenom)
+        val etTelephone = findViewById<EditText>(R.id.etTelephone)
+
+        val nom = etNom.text.toString().trim()
+        val prenom = etPrenom.text.toString().trim()
+        val telephone = etTelephone.text.toString().trim()
+
+        if (nom.isEmpty() || prenom.isEmpty() || telephone.isEmpty()) {
+            Toast.makeText(this, getString(R.string.erreur_contact), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Sauvegarde du contact dans SharedPreferences
+        val contactsPrefs = getSharedPreferences("contacts_prefs", MODE_PRIVATE)
+        val editor = contactsPrefs.edit()
+        val contacts = contactsPrefs.getStringSet("contacts", mutableSetOf())?.toMutableSet()
+        contacts?.add("$nom $prenom - $telephone")
+        editor.putStringSet("contacts", contacts)
+        editor.apply()
+
+        Toast.makeText(this, getString(R.string.contact_enregistre), Toast.LENGTH_SHORT).show()
+
+        // Redirection vers RecapActivity
+        val intent = Intent(this, RecapActivity::class.java)
+        intent.putExtra("NOM", nom)
+        intent.putExtra("PRENOM", prenom)
+        intent.putExtra("TELEPHONE", telephone)
+        startActivity(intent)
     }
 
     private fun updateLanguageButtonText() {
         findViewById<Button>(R.id.btnChangeLang).apply {
             text = if (resources.configuration.locale.language == "fr") "English" else "Français"
-            setBackgroundColor(resources.getColor(android.R.color.holo_red_dark))
-            setTextColor(resources.getColor(android.R.color.white))
         }
     }
 
     private fun toggleLanguage() {
-        // Obtenir la configuration actuelle
-        val configuration = resources.configuration
+        val newLanguage = if (resources.configuration.locale.language == "fr") "en" else "fr"
 
-        // Déterminer la nouvelle locale
-        val newLocale = if (configuration.locale.language == "fr") {
-            Locale("en")
-        } else {
-            Locale("fr")
-        }
+        // Sauvegarde la langue sélectionnée
+        sharedPreferences.edit().putString("LANGUAGE", newLanguage).apply()
 
-        // Mettre à jour la configuration
-        Locale.setDefault(newLocale)
-        val config = Configuration(configuration)
-        config.setLocale(newLocale)
-        createConfigurationContext(config)
-        resources.updateConfiguration(config, resources.displayMetrics)
+        // Applique la nouvelle langue
+        setAppLocale(newLanguage)
 
-        // Recréer l'activité
+        // Redémarre l'activité pour appliquer les changements
         recreate()
+    }
+
+    private fun setAppLocale(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration(resources.configuration)
+        config.setLocale(locale)
+
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }

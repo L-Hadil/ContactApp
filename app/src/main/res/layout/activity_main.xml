@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"> <!-- Ajout d'un fond blanc -->
 
-    <!-- Contenu principal centré -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -12,7 +12,7 @@
         android:clickable="true"
         android:focusableInTouchMode="true">
 
-        <!-- Nom -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/edit_text_background"/>
 
-        <!-- Prénom -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/edit_text_background"/>
 
-        <!-- Âge -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,6 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/edit_text_background"/>
 
-        <!-- Domaine -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

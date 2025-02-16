@@ -1,8 +1,8 @@
 package com.example.contactapp
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,13 +20,16 @@ class XMLActivity : AppCompatActivity() {
     private lateinit var etTelephone: EditText
     private lateinit var btnValider: Button
     private lateinit var btnChangeLang: Button
-
-    private val originalBackgroundColor: Int by lazy {
-        ContextCompat.getColor(this, android.R.color.white)
-    }
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Récupérer la langue sélectionnée
+        sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
+        val selectedLanguage = sharedPreferences.getString("LANGUAGE", "fr") ?: "fr"
+        setAppLocale(selectedLanguage)
+
         setContentView(R.layout.activity_xml)
 
         initializeViews()
@@ -47,7 +50,6 @@ class XMLActivity : AppCompatActivity() {
     private fun setupListeners() {
         btnValider.setOnClickListener { validateForm() }
 
-        // Validation en temps réel du téléphone
         etTelephone.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -75,7 +77,6 @@ class XMLActivity : AppCompatActivity() {
         var isValid = true
         var emptyFields = false
 
-        // Liste des champs à vérifier
         val fields = listOf(
             etNom to R.string.nom,
             etPrenom to R.string.prenom,
@@ -84,7 +85,6 @@ class XMLActivity : AppCompatActivity() {
             etTelephone to R.string.telephone
         )
 
-        // Vérification des champs vides
         fields.forEach { (editText, _) ->
             if (editText.text.isNullOrBlank()) {
                 editText.setBackgroundResource(R.drawable.edit_text_background_error)
@@ -95,7 +95,6 @@ class XMLActivity : AppCompatActivity() {
             }
         }
 
-        // Vérification de l'âge
         val age = etAge.text.toString().toIntOrNull()
         if (age == null || age < 0 || age > 120) {
             etAge.setBackgroundResource(R.drawable.edit_text_background_error)
@@ -128,33 +127,54 @@ class XMLActivity : AppCompatActivity() {
             .setTitle("Confirmation")
             .setMessage(message)
             .setPositiveButton("Confirmer") { _, _ ->
-                // Création de l'Intent avec les données
-                Intent(this, RecapActivity::class.java).apply {
+                saveContact()
+
+                // Ouvrir `RecapActivity` après la validation
+                val intent = Intent(this, RecapActivity::class.java).apply {
                     putExtra("NOM", etNom.text.toString())
                     putExtra("PRENOM", etPrenom.text.toString())
                     putExtra("AGE", etAge.text.toString())
                     putExtra("DOMAINE", etDomaine.text.toString())
                     putExtra("TELEPHONE", etTelephone.text.toString())
-                    startActivity(this)
                 }
+                startActivity(intent)
+                finish()
             }
             .setNegativeButton("Annuler", null)
             .show()
     }
 
-    private fun toggleLanguage() {
-        val configuration = resources.configuration
-        val newLocale = if (configuration.locale.language == "fr") {
-            Locale("en")
-        } else {
-            Locale("fr")
-        }
+    private fun saveContact() {
+        val sharedPreferences = getSharedPreferences("contacts_prefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
 
-        Locale.setDefault(newLocale)
-        val config = Configuration(configuration)
-        config.setLocale(newLocale)
+        val contactsSet = sharedPreferences.getStringSet("contacts", mutableSetOf()) ?: mutableSetOf()
+
+        val newContact = "${etNom.text} ${etPrenom.text} - ${etTelephone.text}"
+        contactsSet.add(newContact)
+
+        editor.putStringSet("contacts", contactsSet)
+        editor.apply()
+
+        Toast.makeText(this, getString(R.string.contact_enregistre), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun toggleLanguage() {
+        val newLocale = if (resources.configuration.locale.language == "fr") "en" else "fr"
+
+        sharedPreferences.edit().putString("LANGUAGE", newLocale).apply()
+
+        setAppLocale(newLocale)
+
+        recreate()
+    }
+
+    private fun setAppLocale(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration(resources.configuration)
+        config.setLocale(locale)
         createConfigurationContext(config)
         resources.updateConfiguration(config, resources.displayMetrics)
-        recreate()
     }
 }

@@ -20,31 +20,37 @@ class CallPhoneActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_call_phone)
 
-        // Récupération du numéro de téléphone
+
         phoneNumber = intent.getStringExtra("TELEPHONE") ?: ""
 
-        // Affichage du numéro
-        findViewById<TextView>(R.id.tvPhoneNumber).text = "Numéro de téléphone : $phoneNumber"
 
-        // Configuration du bouton d'appel
+        findViewById<TextView>(R.id.tvPhoneNumber).text = getString(R.string.numero_telephone, phoneNumber)
+
+
         findViewById<Button>(R.id.btnCall).setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-                // Demander la permission si elle n'est pas accordée
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.CALL_PHONE),
-                    PERMISSION_CALL_PHONE
-                )
-            } else {
-                // Permission déjà accordée, effectuer l'appel
-                makePhoneCall()
-            }
+            checkCallPermission()
         }
 
-        // Configuration du bouton retour
         findViewById<Button>(R.id.btnRetour).setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
             finish()
+        }
+    }
+
+    private fun checkCallPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.CALL_PHONE),
+                PERMISSION_CALL_PHONE
+            )
+        } else {
+
+            makePhoneCall()
         }
     }
 
@@ -54,34 +60,23 @@ class CallPhoneActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            PERMISSION_CALL_PHONE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission accordée
-                    makePhoneCall()
-                } else {
-                    // Permission refusée
-                    Toast.makeText(
-                        this,
-                        "Permission refusée pour effectuer l'appel téléphonique",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+        if (requestCode == PERMISSION_CALL_PHONE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall()
+            } else {
+                Toast.makeText(this, getString(R.string.permission_refusee), Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun makePhoneCall() {
         try {
-            val intent = Intent(Intent.ACTION_CALL)
-            intent.data = Uri.parse("tel:$phoneNumber")
+            val intent = Intent(Intent.ACTION_CALL).apply {
+                data = Uri.parse("tel:$phoneNumber")
+            }
             startActivity(intent)
         } catch (e: SecurityException) {
-            Toast.makeText(
-                this,
-                "Erreur lors de l'appel téléphonique",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this, getString(R.string.erreur_appel), Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -7,7 +7,7 @@
     android:gravity="center"
     android:padding="16dp">
 
-    <!-- Icône de téléphone -->
+
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -15,7 +15,7 @@
         android:layout_marginBottom="24dp"
         app:tint="@android:color/holo_blue_dark" />
 
-    <!-- Numéro de téléphone -->
+
     <TextView
         android:id="@+id/tvPhoneNumber"
         android:layout_width="wrap_content"
@@ -24,14 +24,14 @@
         android:textStyle="bold"
         android:layout_marginBottom="32dp"/>
 
-    <!-- Conteneur pour les boutons -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
 
-        <!-- Bouton d'appel -->
+
         <Button
             android:id="@+id/btnCall"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:layout_marginEnd="16dp"
             android:paddingHorizontal="24dp"/>
 
-        <!-- Bouton retour -->
+
         <Button
             android:id="@+id/btnRetour"
             android:layout_width="wrap_content"
