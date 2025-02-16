@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
+
+        <!-- Nom -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nom"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:id="@+id/etNom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:inputType="textPersonName"
+            android:hint="@string/hint_nom"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edit_text_background"/>
+
+        <!-- Prénom -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prenom"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:id="@+id/etPrenom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:inputType="textPersonName"
+            android:hint="@string/hint_prenom"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edit_text_background"/>
+
+        <!-- Âge -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/age"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:id="@+id/etAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:inputType="number"
+            android:hint="@string/hint_age"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edit_text_background"/>
+
+        <!-- Domaine -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/domaine"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:id="@+id/etDomaine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:inputType="text"
+            android:hint="@string/hint_domaine"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edit_text_background"/>
+
+        <!-- Téléphone -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/telephone"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+        <EditText
+            android:id="@+id/etTelephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:inputType="phone"
+            android:hint="@string/hint_telephone"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edit_text_background"/>
+
+        <!-- Bouton de validation -->
+        <Button
+            android:id="@+id/btnValiderXML"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/valider"
+            android:layout_marginTop="16dp"
+            android:padding="12dp"/>
+
+        <!-- Bouton de changement de langue -->
+        <Button
+            android:id="@+id/btnChangeLangXml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="12dp"
+            android:layout_gravity="start"
+            android:text="@string/changer_langue"/>
+
+    </LinearLayout>
+</ScrollView>

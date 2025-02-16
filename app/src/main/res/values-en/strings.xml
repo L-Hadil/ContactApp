@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ContactApp</string>
+
+    <!-- Form labels -->
+    <string name="nom">Last Name</string>
+    <string name="prenom">First Name</string>
+    <string name="age">Age</string>
+    <string name="domaine">Field of Expertise</string>
+    <string name="telephone">Phone</string>
+    <string name="changer_langue">English</string>
+    <string name="desc_changer_langue">Change application language</string>
+    <string name="resume_info">Information Summary</string>
+    <string name="ok">OK</string>
+    <string name="retour">Back</string>
+    <string name="merci">Thank you for your registration!</string>
+    <string name="retour_accueil">Back to Home</string>
+    <string name="appeler">Call</string>
+    <!-- Input field hints -->
+    <string name="hint_nom">Enter your last name</string>
+    <string name="hint_prenom">Enter your first name</string>
+    <string name="hint_age">Enter your age</string>
+    <string name="hint_domaine">Enter your field of expertise</string>
+    <string name="hint_telephone">Enter your phone number</string>
+
+    <!-- Buttons -->
+    <string name="valider">Submit</string>
+    <string name="version_xml">XML Version</string>
+    <string name="version_kotlin">Kotlin Version</string>
+    <string name="choisir_version">Choose a version</string>
+</resources>

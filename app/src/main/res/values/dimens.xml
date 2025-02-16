@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="padding_horizontal">16dp</dimen>
+    <dimen name="padding_vertical">24dp</dimen>
+    <dimen name="margin_top">16dp</dimen>
+    <dimen name="margin_bottom">8dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="button_padding">16dp</dimen>
+</resources>

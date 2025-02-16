@@ -1,3 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ContactApp</string>
+
+    <!-- Labels du formulaire -->
+    <string name="nom">Nom</string>
+    <string name="prenom">Prénom</string>
+    <string name="age">Âge</string>
+    <string name="domaine">Domaine de compétences</string>
+    <string name="telephone">Téléphone</string>
+    <string name="changer_langue">Français</string>
+    <string name="desc_changer_langue">Changer la langue de l\'application</string>
+    <string name="resume_info">Résumé des informations</string>
+    <string name="ok">OK</string>
+    <string name="retour">Retour</string>
+    <string name="merci">Merci pour votre inscription !</string>
+    <string name="retour_accueil">Retour à l\'accueil</string>
+    <string name="appeler">Appeler</string>
+    <!-- Hints pour les champs de saisie -->
+    <string name="hint_nom">Entrez votre nom</string>
+    <string name="hint_prenom">Entrez votre prénom</string>
+    <string name="hint_age">Entrez votre âge</string>
+    <string name="hint_domaine">Entrez votre domaine de compétences</string>
+    <string name="hint_telephone">Entrez votre numéro de téléphone</string>
+
+    <!-- Boutons -->
+    <string name="valider">Valider</string>
+    <string name="version_xml">Version avec XML</string>
+    <string name="version_kotlin">Version avec Kotlin</string>
+    <string name="choisir_version">Choisissez une version</string>
 </resources>
